@@ -16,7 +16,7 @@ const testPassword = function testPassword() {
         spanErrorPassword.innerHTML = '';
         return true;
     } else {
-        spanErrorPassword.innerHTML = 'NON';
+        spanErrorPassword.innerHTML = 'Votre mot de passe doit contenir, une majuscule, une miniscule, un chiffre et doit avoir une taille de au moins 5 charactères';
         return false;
     }
 }
