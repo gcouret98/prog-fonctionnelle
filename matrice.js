@@ -1,37 +1,33 @@
 'use strict';
-document.body.innerHTML = '';
 
-function gridGenerator(xAxis, yAxis) {
-  // Générer une grille vide de dimensions xAxis * yAxis
-  const grid = document.createElement("table");
-  grid.setAttribute('id', 'grid-container');
-  grid.setAttribute("border", "1");
-  for (let i = 0; i < yAxis; i++) {
-    const row = grid.insertRow();
-    for (let j = 0; j < xAxis; j++) {
-      const cell = row.insertCell();
-      const delay = Math.random() * 1000 + 1000; // Nombre aléatoire compris entre 1 et 2 secondes
-      setInterval(function () {
-        cell.style.backgroundColor = getRandomColor();
-      }, delay);
+const gridGenerator = function gridGenerator(xAxis, yAxis) {
+  const table = document.createElement('table');
+
+  for (let i = 0; i <= xAxis; i += 1) {
+    const row = table.insertRow(0);
+
+    for (let j = 0; j <= yAxis; j += 1) {
+      const column = row.insertCell(0);
+
+      column.width = 50;
+      column.height = 50;
+      column.bgColor = randomColor(column);
     }
   }
 
-  return grid;
+  return table;
+};
+
+const getRandomColor = function getRandomColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-function getRandomColor() {
-  // Générer une couleur aléatoire
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+const randomColor = function randomColor(column) {
+  const randomTimer = (Math.random() * (2000 - 1000) + 1000);
 
-const grid = gridGenerator(10, 10); // Générer une grille 10 x 10
+  column.bgColor = getRandomColor();
 
-// Ajouter la grille à un élément de la page HTML
-const container = document.getElementById("grid-container");
-document.body.appendChild(grid);
+  setTimeout(() => randomColor(column), randomTimer);
+};
+
+document.body.appendChild(gridGenerator(4, 4));
